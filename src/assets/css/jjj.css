@@ -1,0 +1,17 @@
+@import url('//at.alicdn.com/t/font_2291973_zg5eu9vd4g.css');
+
+.flex{
+  display: flex;
+}
+.f-w{
+  flex-wrap: wrap;
+}
+.j-s{
+  justify-content: space-between;
+}
+.a-c{
+  align-items: center;
+}
+.flex-col{
+  flex-direction: column;
+}
