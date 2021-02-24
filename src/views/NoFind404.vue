@@ -1,19 +1,13 @@
 <template>
-  <div>404</div>
+  <a-result status="404" title="404" sub-title="对不起,您访问的页面不存在。">
+    <template #extra>
+      <router-link to="/">
+        <a-button type="primary"> 返回首页 </a-button>
+      </router-link>
+    </template>
+  </a-result>
 </template>
 
 <script>
 export default {};
 </script>
-
-<style scoped>
-div {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 80px;
-  font-weight: normal;
-}
-</style>

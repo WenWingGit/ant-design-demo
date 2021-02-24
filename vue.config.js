@@ -9,10 +9,10 @@ module.exports = {
   },
   configureWebpack: {
     // 把这些依赖单独拎出来，不放到chunk-vendors.js一起打包
-    // externals: {
-    //   'vue': 'Vue',
-    //   'vue-router': 'VueRouter'
-    // }
+    externals: {
+      'vue': 'Vue',
+      'vue-router': 'VueRouter'
+    }
   },
   // 链式操作webpack，在默认配置上进行修改
   chainWebpack: config => {
