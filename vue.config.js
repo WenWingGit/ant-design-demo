@@ -1,11 +1,12 @@
 const path = require('path')
+
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
     ? '/test/' 
     : '/',
   lintOnSave: 'warning', // 保存代码时，eslint仅警告而不报错
   devServer: {
-    port: 9999
+    proxy: 'https://git1997.top:3030'
   },
   configureWebpack: {
     // 把这些依赖单独拎出来，不放到chunk-vendors.js一起打包

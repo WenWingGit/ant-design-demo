@@ -77,7 +77,6 @@ export default {
     margin: 16px;
     padding: 18px;
     background: #fff;
-    min-height: 280px;
   }
 }
 .logo {
