@@ -6,7 +6,7 @@ module.exports = {
     : '/',
   lintOnSave: 'warning', // 保存代码时，eslint仅警告而不报错
   devServer: {
-    proxy: 'https://git1997.top:3030'
+    proxy: process.env.VUE_APP_BASE_URL
   },
   configureWebpack: {
     // 把这些依赖单独拎出来，不放到chunk-vendors.js一起打包
