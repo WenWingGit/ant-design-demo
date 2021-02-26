@@ -24,11 +24,11 @@
         <!-- 第一个参数：text 记录的当前字段 -->
         <!-- 第二个参数：record 整条记录 -->
         <a @click="handleEditTable(record.id)">
-          <a-icon type="edit"></a-icon>编辑
+          <a-icon type="edit"></a-icon> 编辑 
         </a>
         <a-divider type="vertical" />
         <a @click="handleDelteTable(record.id)">
-          <a-icon type="delete"></a-icon>删除
+          <a-icon type="delete"></a-icon> 删除 
         </a>
       </span>
     </a-table>
@@ -142,9 +142,13 @@ export default {
       selectedRowKeys: [],
       // 分页数据
       pagination: {
-        pageSize: 10,
-        total: 0,
-        current: 1,
+        pageSize: 8, // 每页几条
+        total: 0, // 总条数
+        current: 1, // 当前页码
+        onChange: (i) => {
+          this.pagination.current = i
+          this.getList()
+        }
       },
       // 是否显示弹窗
       visible_modal: false,
@@ -162,13 +166,13 @@ export default {
   methods: {
     async getList() {
       this.isLoading = true;
-      let {
-        data: { list, current, total },
-      } = await this.$get("/api/goods/list", this.pagination);
-
-      this.pagination.current = current;
-      this.pagination.total = total;
-      this.data = list;
+      let { pageSize, current } = this.pagination
+      console.log({ pageSize, current })
+      let { data } = await this.$get("/api/goods/list", { pageSize, current });
+      console.log(data)
+      this.pagination.current = data.current;
+      this.pagination.total = data.total;
+      this.data = data.list;
       this.isLoading = false;
     },
     async handleDelteTable(id) {
@@ -199,34 +203,46 @@ export default {
       this.visible_modal = true;
     },
     async handleModalOk() {
-      this.visible_modal = false;
+      // 验证
       let is_Fill_all = true;
       Object.values(this.form).forEach((r) => {
         if (r.trim() === "") {
           is_Fill_all = false;
         }
       });
+      // 验证不通过
+      if (!is_Fill_all) {
+        this.$me("请填写完整信息", "");
+        return true
+      }
+      // 参数
+      let param = JSON.parse(JSON.stringify(this.form))
 
       // 判断是添加还是编辑
-      let api = this.edit_id === -1 ? "/api/goods/new" : "/api/goods/edit";
-
-      if (is_Fill_all) {
-        let {
-          code,
-          data: { message },
-        } = await this.$post(api, this.form);
-        if (code === 0) {
-          this.$ms(message);
-          this.visible_modal = false;
-          this.form.cn_name = "";
-          this.form.en_name = "";
-          this.getList();
-        } else {
-          this.$me(message);
-        }
-        return false;
+      let api = ''
+      if(this.edit_id === -1) {
+        // 添加
+        api = '/api/goods/new'
+      }else{
+        // 编辑
+        api = '/api/goods/update'
+        param.id = this.edit_id
       }
-      this.$me("请填写完整信息", "");
+
+      let {
+        code,
+        message
+      } = await this.$post(api, param);
+      if (code === 0) {
+        this.$ms(message);
+      } else {
+        this.$me(message);
+      }
+      
+      this.visible_modal = false;
+      this.form.cn_name = "";
+      this.form.en_name = "";
+      this.getList();
     },
     onSelectChange(selectedRowKeys) {
       this.selectedRowKeys = selectedRowKeys;
