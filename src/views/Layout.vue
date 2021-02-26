@@ -62,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 .layout {
-  height: 100vh;
+  min-height: 100vh;
   .trigger {
     font-size: 18px;
     line-height: 64px;

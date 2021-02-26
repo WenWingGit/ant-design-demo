@@ -39,5 +39,5 @@ export default Vue => {
       }
     },
   })
-  console.log('全局混入已经部署')
+  // console.log('全局混入已经部署')
 }

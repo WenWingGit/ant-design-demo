@@ -11,5 +11,5 @@ export default Vue => {
     Vue.component('j-'+kebabCase(componentName), context(filePath).default)
   })
   
-  console.log('全局组件已经部署')
+  // console.log('全局组件已经部署')
 }

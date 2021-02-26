@@ -13,5 +13,5 @@ export default Vue => {
   Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])
   })
-  console.log('全局过滤器已经部署')
+  // console.log('全局过滤器已经部署')
 }

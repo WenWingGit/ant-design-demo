@@ -42,6 +42,7 @@ export async function $get(url, params) {
   return data
 }
 export async function $post(url, params) {
+  console.log(params)
   let { data } = await myAxios.post(url, params)
   return data
 }
