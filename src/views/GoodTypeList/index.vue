@@ -24,19 +24,30 @@
         <!-- 第一个参数：text 记录的当前字段 -->
         <!-- 第二个参数：record 整条记录 -->
         <a @click="handleEditTable(record.id)">
-          <a-icon type="edit"></a-icon> 编辑 
+          <a-icon type="edit"></a-icon> 编辑
         </a>
         <a-divider type="vertical" />
         <a @click="handleDelteTable(record.id)">
-          <a-icon type="delete"></a-icon> 删除 
+          <a-icon type="delete"></a-icon> 删除
         </a>
       </span>
     </a-table>
 
     <!-- 添加/编辑 -->
-    <a-modal v-model="visible_modal" :title="modal_title" @ok="handleModalOk">
-      <a-form-model layout="inline" :model="form">
-        <a-form-model-item label="分类名称(中文)">
+    <a-modal
+      v-model="visible_modal"
+      :title="modal_title"
+      :afterClose="clear_modal_form"
+      @ok="handleModalOk"
+    >
+      <a-form-model
+        ref="form"
+        :model="form"
+        :rules="rules"
+        :label-col="{ span: 6 }"
+        :wrapper-col="{ span: 14, offset: 1 }"
+      >
+        <a-form-model-item label="分类名称(中文)" prop="cn_name">
           <a-input v-model="form.cn_name" />
         </a-form-model-item>
         <a-form-model-item label="分类名称(英文)">
@@ -146,9 +157,9 @@ export default {
         total: 0, // 总条数
         current: 1, // 当前页码
         onChange: (i) => {
-          this.pagination.current = i
-          this.getList()
-        }
+          this.pagination.current = i;
+          this.getList();
+        },
       },
       // 是否显示弹窗
       visible_modal: false,
@@ -161,15 +172,21 @@ export default {
         cn_name: "",
         en_name: "",
       },
+      // 表单验证
+      rules: {
+        cn_name: [
+          { whitespace: true, message: "不能只填空格", trigger: "blur" },
+          { required: true, message: "请输入中文商品类型", trigger: "blur" },
+          { min: 2, max: 10, message: "字符在2~10之间", trigger: "blur" },
+        ],
+      },
     };
   },
   methods: {
     async getList() {
       this.isLoading = true;
-      let { pageSize, current } = this.pagination
-      console.log({ pageSize, current })
+      let { pageSize, current } = this.pagination;
       let { data } = await this.$get("/api/goods/list", { pageSize, current });
-      console.log(data)
       this.pagination.current = data.current;
       this.pagination.total = data.total;
       this.data = data.list;
@@ -203,49 +220,48 @@ export default {
       this.visible_modal = true;
     },
     async handleModalOk() {
-      // 验证
-      let is_Fill_all = true;
-      Object.values(this.form).forEach((r) => {
-        if (r.trim() === "") {
-          is_Fill_all = false;
-        }
-      });
-      // 验证不通过
-      if (!is_Fill_all) {
-        this.$me("请填写完整信息", "");
-        return true
-      }
+      // 自己写的验证
+      // let is_Fill_all = true;
+      // Object.values(this.form).forEach((r) => {
+      //   if (r.trim() === "") {
+      //     is_Fill_all = false;
+      //   }
+      // });
+      // // 验证不通过
+      // if (!is_Fill_all) {
+      //   this.$me("请填写完整信息", "");
+      //   return true
+      // }
+
+      // 自带的验证
+      await this.$valid("form");
+
       // 参数
-      let param = JSON.parse(JSON.stringify(this.form))
+      let param = JSON.parse(JSON.stringify(this.form));
 
       // 判断是添加还是编辑
-      let api = ''
-      if(this.edit_id === -1) {
+      let api = "/api/goods/";
+      if (this.edit_id === -1) {
         // 添加
-        api = '/api/goods/new'
-      }else{
+        api += "new";
+      } else {
         // 编辑
-        api = '/api/goods/update'
-        param.id = this.edit_id
+        api += "update";
+        param.id = this.edit_id;
       }
 
-      let {
-        code,
-        message
-      } = await this.$post(api, param);
-      if (code === 0) {
-        this.$ms(message);
-      } else {
-        this.$me(message);
-      }
-      
+      let { code, message } = await this.$post(api, param);
+
+      code === 0 ? this.$ms(message) : this.$me(message);
       this.visible_modal = false;
-      this.form.cn_name = "";
-      this.form.en_name = "";
       this.getList();
     },
     onSelectChange(selectedRowKeys) {
       this.selectedRowKeys = selectedRowKeys;
+    },
+    clear_modal_form() {
+      this.form.cn_name = "";
+      this.form.en_name = "";
     },
   },
   computed: {

@@ -13,6 +13,6 @@ export default {
     iconName: "appstore",
     sortNo: 1,
   },
-  component: () => import(/* webpackChunkName: "goodTypeList" */"~v/GoodTypeList"),
+  component: () => import(/* webpackChunkName: "goodTypeList" */"~v/GoodTypeList/index.vue"),
   // children中的路由只能在父级中的component中的router-view渲染
 }
