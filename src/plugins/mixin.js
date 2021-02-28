@@ -44,29 +44,30 @@ export default Vue => {
           });
         })
       },
-      $sx_toast(toastText = '') {
+      $sx_toast(toastText = '', visibleTime = 1500) {
         let body = document.body
         let children = document.createElement("div")
         let html = `<div class="toast">${toastText}</div>
           <style>.toast {
             position: fixed;
-            z-index: 2000;
+            z-index: 300000;
             left: 50%;
-            top:45%;
-            transition:all .5s;
+            top: 45%;
+            transition: all .5s;
             -webkit-transform: translateX(-50%) translateY(-50%);
-               -moz-transform: translateX(-50%) translateY(-50%);
-                -ms-transform: translateX(-50%) translateY(-50%);
-                 -o-transform: translateX(-50%) translateY(-50%);
-                    transform: translateX(-50%) translateY(-50%);
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -o-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
             text-align: center;
             border-radius: 5px;
-            color:#FFF;
+            color: #FFF;
             background: rgba(17, 17, 17, 0.7);
-            height: 45px;
-            line-height: 45px;
-            padding: 0 15px;
-            max-width: 150px;
+            line-height: 1.6;
+            padding: 8px 15px;
+            max-width: 56%;
+            box-sizing: border-box;
+            width: 100%;
         }</style>
         `
         children.innerHTML = html
@@ -74,7 +75,7 @@ export default Vue => {
         let timer = setTimeout(function(){
           body.removeChild(children)
           clearTimeout(timer)
-        }, 1500)
+        }, visibleTime)
       }
     },
   })
