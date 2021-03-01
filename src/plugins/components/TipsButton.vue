@@ -1,12 +1,13 @@
 <template>
-  <div>
-    组件内容
+  <div class="toast" v-show="toastShow">
+    {{toastText}}
   </div>
 </template>
 
 <script>
   export default {
-    name: "Tips"
+    name: "Tips",
+    
   }
 </script>
 
