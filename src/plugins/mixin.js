@@ -44,6 +44,14 @@ export default Vue => {
           });
         })
       },
+      // 验证表单
+      $valid(ruleForm) {
+        return new Promise(resolve => {
+          this.$refs[ruleForm].validate(valid => {
+            if (valid) resolve()
+          });
+        })
+      },
       $sx_toast(toastText = '', visibleTime = 1500) {
         let body = document.body
         let children = document.createElement("div")

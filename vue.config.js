@@ -6,6 +6,7 @@ module.exports = {
     : '/',
   lintOnSave: 'warning', // 保存代码时，eslint仅警告而不报错
   devServer: {
+    port: 9998,
     proxy: process.env.VUE_APP_BASE_URL
   },
   configureWebpack: {
