@@ -15,12 +15,28 @@
         </a-menu>
       </a-layout-sider>
       <a-layout>
-        <a-layout-header style="background: #fff; padding: 0">
+        <a-layout-header style="background: #fff; padding: 0" class="flex j-s a-c">
           <a-icon
             class="trigger"
             :type="collapsed ? 'menu-unfold' : 'menu-fold'"
             @click="() => (collapsed = !collapsed)"
           />
+          <a-dropdown :trigger="['click']" class="header-dropdown">
+            <a class="ant-dropdown-link" style="use-select: none;" @click="e => e.preventDefault()">
+              <div class="flex a-c">
+                <a-avatar class="header-dropdown-avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                用户名 <a-icon type="down" />
+              </div>
+            </a>
+            <a-menu slot="overlay">
+              <a-menu-item>
+                <a href="javascript:;"><a-icon type="sync" /> 修改密码</a>
+              </a-menu-item>
+              <a-menu-item>
+                <a href="javascript:;" @click="handleLogOut"><a-icon type="logout" /> 退出登录</a>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
         </a-layout-header>
         <a-layout-content class="layout-wrap">
           <router-view></router-view>
@@ -57,6 +73,12 @@ export default {
       return [this.$route.path];
     },
   },
+  methods: {
+    async handleLogOut() {
+      await this.$mc("确定退出登录吗？", "工作辛苦了")
+      this.$router.push('/login')
+    }
+  },
 };
 </script>
 
@@ -86,5 +108,11 @@ export default {
   line-height: 32px;
   color: #fff;
   background: rgba(255, 255, 255, 0.2);
+}
+.header-dropdown{
+  margin-right: 40px;
+}
+.header-dropdown-avatar{
+  margin-right: 5px;
 }
 </style>

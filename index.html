@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <style>
+    .u-mask * {
+      box-sizing: border-box;
+    }
+    .u-drawer {
+      z-index: 10074;
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+    .u-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 10073;
+      transition: all 0.25s ease-in-out 0s;
+      transform: scale(1, 1);
+    }
+    .u-drawer-center {
+      display: flex;
+      flex-direction: column;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      align-items: center;
+      /* opacity: 0; */
+      z-index: 99999;
+      position: absolute;
+    }
+
+    .u-mode-center-box {
+      min-width: 41px;
+      min-height: 41px;
+      display: block;
+      position: relative;
+      background-color: #fff;
+      width: 248px;
+      height: auto;
+      z-index: 10075;
+      margin-top: 0px;
+      border-radius: 6px;
+      margin: auto;
+      overflow: hidden;
+    }
+    .u-drawer__scroll-view{
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .uni-scroll-view{
+      position: relative;
+      max-height: inherit;
+      width: 100%;
+      height: 100%;
+    }
+    .u-model{
+      height: auto;
+      overflow: hidden;
+      font-size: 13px;
+      background-color: #fff;
+    }
+    .u-model__title{
+      padding-top: 19px;
+      font-weight: 500;
+      text-align: center;
+      color: #303133;
+    }
+    .u-model__content__message{
+      padding: 19px;
+      font-size: 12px;
+      text-align: center;
+      color: #606266;
+      border-bottom: 1px solid #f4f6f8;
+    }
+    .u-model__footer{
+      display: flex;
+      flex-direction: row;
+    }
+    .u-model__footer__button:active{
+      background-color: #e6e6e6;
+    }
+    .u-model__footer__button{
+      flex: 1;
+      height: 41px;
+      line-height: 41px;
+      font-size: 13px;
+      box-sizing: border-box;
+      cursor: pointer;
+      text-align: center;
+      border-radius: 1px;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+
+<div class="u-drawer" style="z-index: 10074;">
+  <div class="u-mask u-mask-zoom u-mask-show">
+  </div>
+  <div class="u-drawer-content u-drawer-center u-drawer-content-visible u-animation-zoom"
+    style="z-index: 10075; overflow: hidden; transition: all 0.25s linear 0s;">
+    <div class="u-mode-center-box">
+      <!---->
+      <uni-scroll-view class="u-drawer__scroll-view">
+        <div class="uni-scroll-view">
+          <div class="uni-scroll-view" style="overflow: hidden auto;">
+            <div class="uni-scroll-view-content">
+              <!---->
+              <div class="u-model">
+                <div class="u-model__title u-line-1">提示</div>
+                <div class="u-model__content">
+                  <div class="u-model__content__message">慈母手中线，游子身上衣慈母手中线，游子身上衣慈母手中线，游子身上衣</div>
+                </div>
+                <div class="u-model__footer u-border-top">
+                  <div class="u-model__footer__button" style="color: rgb(96, 98, 102);">取消
+                  </div>
+                  <div class="u-model__footer__button hairline-left" style="color: rgb(41, 121, 255);">确认</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </uni-scroll-view>
+    </div>
+    <div class="u-close u-close--top-right"></div>
+  </div>
+</div>
+</body>
+
+</html>

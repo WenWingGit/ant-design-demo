@@ -4,5 +4,5 @@ export default {
   meta: {
     title: "登录页面",
   },
-  component: () => import(/* webpackChunkName: "goodTypeList" */"~v/Login"),
+  component: () => import(/* webpackChunkName: "Login" */"~v/Login"),
 }

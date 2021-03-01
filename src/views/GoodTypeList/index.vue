@@ -43,7 +43,7 @@
       <a-form-model
         ref="form"
         :model="form"
-        :rules="rules"
+        :rules="add_edit_rules"
         :label-col="{ span: 6 }"
         :wrapper-col="{ span: 14, offset: 1 }"
       >
@@ -131,13 +131,9 @@ const columns = [
   },
 ];
 
+import { add_edit_rules } from './rules'
 export default {
   name: "GoodTypeList",
-  filters: {
-    fmtStatusTypeText(val) {
-      return ["已删除", "未发布", "已发布"][val];
-    },
-  },
   created() {
     this.getList();
   },
@@ -173,13 +169,7 @@ export default {
         en_name: "",
       },
       // 表单验证
-      rules: {
-        cn_name: [
-          { whitespace: true, message: "不能只填空格", trigger: "blur" },
-          { required: true, message: "请输入中文商品类型", trigger: "blur" },
-          { min: 2, max: 10, message: "字符在2~10之间", trigger: "blur" },
-        ],
-      },
+      add_edit_rules,
     };
   },
   methods: {
@@ -256,9 +246,11 @@ export default {
       this.visible_modal = false;
       this.getList();
     },
+    // 多选时触发
     onSelectChange(selectedRowKeys) {
       this.selectedRowKeys = selectedRowKeys;
     },
+    // 关闭模态框时触发
     clear_modal_form() {
       this.form.cn_name = "";
       this.form.en_name = "";

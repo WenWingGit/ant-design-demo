@@ -5,7 +5,6 @@ export default {
   path: '/',
   redirect: "/good-type-list",
   name: 'layout', 
-  meta: {},
   component: () => import(/* webpackChunkName: "Layout" */"~v/Layout"),
   children: routes_childrens
 }

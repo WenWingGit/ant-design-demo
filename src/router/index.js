@@ -14,7 +14,7 @@ router.beforeEach((to, from, next) => {
   // to代表即将要跳转的路由信息
   // next() 调用这个方法路由才会去跳转
   NProgress.start()
-  document.title = to.meta.title+ ' | 后台管理系统'
+  document.title = to.meta.title + ' | 后台管理系统'
   next();
 })
 
