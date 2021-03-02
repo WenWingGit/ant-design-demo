@@ -1,7 +1,4 @@
 import {
-  reject
-} from 'lodash';
-import {
   $get
 } from './util/request'
 import {

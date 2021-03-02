@@ -15,3 +15,6 @@
 .flex-col{
   flex-direction: column;
 }
+.j-c{
+  justify-content: center;
+}

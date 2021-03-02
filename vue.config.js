@@ -16,6 +16,13 @@ module.exports = {
       'vue-router': 'VueRouter'
     }
   },
+  css: {
+    loaderOptions: {
+        sass: {
+            prependData: `@import "./src/assets/scss/_var";`,
+        },
+    },
+  },
   // 链式操作webpack，在默认配置上进行修改
   chainWebpack: config => {
     // 配置别名

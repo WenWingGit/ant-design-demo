@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test": "vue-cli-service build --mode staging"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "ant-design-vue": "^1.7.3",
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
